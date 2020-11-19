@@ -26,7 +26,7 @@ export class MapComponent implements OnInit {
       }),
     });
 
-    const typeLayer = new TileLayer({
+    const tileLayer = new TileLayer({
       source: new XYZ({
         url: 'https://nlftp.mlit.go.jp/ksj/tile/L03-b/{z}/{x}/{y}.png',
       }),
@@ -51,7 +51,7 @@ export class MapComponent implements OnInit {
     });
 
     this.map = new Map({
-      layers: [baseLayer, typeLayer, roadLayer],
+      layers: [baseLayer, tileLayer, roadLayer],
       target: 'map',
       view: new View({
         center: fromLonLat([139.75, 35.68]),
