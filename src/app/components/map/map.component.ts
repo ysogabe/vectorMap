@@ -2,14 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import Map from 'ol/Map';
 import TileLayer from 'ol/layer/Tile';
 import View from 'ol/View';
-import OSM from 'ol/source/OSM';
 import XYZ from 'ol/source/XYZ';
-import { fromLonLat } from 'ol/proj';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTileSource from 'ol/source/VectorTile';
-import GeoJSON from 'ol/format/GeoJSON';
-import { Fill, Stroke, Style } from 'ol/style';
-import { Feature } from 'ol';
+import MVTFormat from 'ol/format/MVT';
+import { fromLonLat } from 'ol/proj';
+import vtStyle from './vtStyle';
 
 @Component({
   selector: 'app-map',
@@ -39,80 +37,17 @@ export class MapComponent implements OnInit {
 
     const roadLayer = new VectorTileLayer({
       source: new VectorTileSource({
-        format: new GeoJSON(),
+        format: new MVTFormat({
+          layers: ['road', 'railway'],
+        }),
         url:
-          'https://cyberjapandata.gsi.go.jp/xyz/experimental_rdcl/{z}/{x}/{y}.geojson',
+          'https://cyberjapandata.gsi.go.jp/xyz/experimental_bvmap/{z}/{x}/{y}.pbf',
+        attributions: [
+          '<a href="https://github.com/gsi-cyberjapan/gsimaps-vector-experiment" target="_blank" rel=”noopener noreferrer”>国土地理院</a>',
+        ],
       }),
-      style: (f) => {
-        console.log(f);
-        console.log(f.get('rdCtg'));
-        if (f.get('rdCtg') == '高速自動車国道等') {
-          return new Style({
-            stroke: new Stroke({
-              color: 'red',
-              width: 10,
-              lineCap: 'butt',
-            }),
-          });
-        }
-        if (f.get('rdCtg') == '国道') {
-          return new Style({
-            stroke: new Stroke({
-              color: 'blue',
-              width: 10,
-              lineCap: 'butt',
-            }),
-          });
-        }
-        if (f.get('rdCtg') == '都道府県道') {
-          return new Style({
-            stroke: new Stroke({
-              color: 'green',
-              width: 10,
-              lineCap: 'butt',
-            }),
-          });
-        }
-        return new Style({
-          stroke: new Stroke({
-            color: '#aaaaaa',
-            width: 5,
-            lineCap: 'butt',
-          }),
-        });
-      },
-      // if (f.get('rdCtg') == '国道' || f.properties['rdCtg'] == '都道府県道') {
-      //   return { color: '#777777', weight: 5, opacity: 0.5, lineCap: 'butt' };
-      // } else if (f.properties['rdCtg'] == '高速自動車国道等') {
-      //   return { color: '#ff1493', weight: 5, opacity: 0.5, lineCap: 'butt' };
-      // } else {
-      //   if (f.properties['type'] == '通常部') {
-      //     return {
-      //       color: '#aaaaaa',
-      //       weight: 2,
-      //       opacity: 0.5,
-      //       lineCap: 'butt',
-      //     };
-      //   } else {
-      //     return {
-      //       color: '#aaaaaa',
-      //       weight: 2,
-      //       opacity: 0.5,
-      //       lineCap: 'butt',
-      //       dashArray: '5,5',
-      //     };
-      //   }
-      // }
-      // return {
-      //   color: '#aaaaaa',
-      //   weight: 2,
-      //   opacity: 0.5,
-      //   lineCap: 'butt',
-      //   dashArray: '5,5',
-      // };
+      style: (f, n) => vtStyle(f, n),
       opacity: 0.7,
-      // minZoom: 16,
-      // maxZoom: 18,
     });
 
     this.map = new Map({
@@ -121,8 +56,8 @@ export class MapComponent implements OnInit {
       view: new View({
         center: fromLonLat([139.75, 35.68]),
         zoom: 16,
-        minZoom: 2,
-        maxZoom: 18,
+        minZoom: 8,
+        maxZoom: 17,
       }),
     });
   }
