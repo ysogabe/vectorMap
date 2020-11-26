@@ -3,3 +3,11 @@
   margin: 0px;
   padding: 0px;
 }
+
+.ol-rotate {
+  top: 3em;
+}
+
+.ol-overviewmap {
+  bottom: 2em;
+}

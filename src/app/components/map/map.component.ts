@@ -8,6 +8,21 @@ import VectorTileSource from 'ol/source/VectorTile';
 import MVTFormat from 'ol/format/MVT';
 import { fromLonLat } from 'ol/proj';
 import vtStyle from './vtStyle';
+import {
+  DragRotateAndZoom,
+  Select,
+  Translate,
+  defaults as defaultInteraction,
+} from 'ol/interaction';
+import {
+  Attribution,
+  Rotate,
+  ZoomSlider,
+  OverviewMap,
+  ScaleLine,
+  FullScreen,
+  defaults as defaultControls,
+} from 'ol/control';
 
 @Component({
   selector: 'app-map',
@@ -23,6 +38,12 @@ export class MapComponent implements OnInit {
     const baseLayer = new TileLayer({
       source: new XYZ({
         url: 'https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png',
+      }),
+    });
+
+    const overViewLayer = new TileLayer({
+      source: new XYZ({
+        url: 'https://cyberjapandata.gsi.go.jp/xyz/blank/{z}/{x}/{y}.png',
       }),
     });
 
@@ -51,6 +72,23 @@ export class MapComponent implements OnInit {
     });
 
     this.map = new Map({
+      controls: defaultControls().extend([
+        new ZoomSlider(),
+        new ScaleLine({
+          steps: 10,
+          minWidth: 200,
+          bar: true,
+        }),
+        new Attribution(),
+        new FullScreen(),
+        new OverviewMap({
+          layers: [overViewLayer],
+          collapsed: false,
+        }),
+        new Rotate(),
+      ]),
+
+      interactions: defaultInteraction().extend([new DragRotateAndZoom()]),
       layers: [baseLayer, tileLayer, roadLayer],
       target: 'map',
       view: new View({

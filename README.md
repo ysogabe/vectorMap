@@ -96,3 +96,5 @@ layer.bindPopup(s);
 }
 }
 ```
+
+- https://openlayers.org/en/latest/examples/vector-tile-info.html
