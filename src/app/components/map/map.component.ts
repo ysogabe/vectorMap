@@ -75,6 +75,26 @@ export class MapComponent implements OnInit {
       }),
     } as BaseLayerOptions);
 
+    const baseBlankLayerTile = new LayerTile({
+      title: '白地図',
+      type: 'base',
+      visible: true,
+      source: new XYZ({
+        url: 'https://cyberjapandata.gsi.go.jp/xyz/blank/{z}/{x}/{y}.png',
+      }),
+    } as BaseLayerOptions);
+
+    const basePhotoLayerTile = new LayerTile({
+      title: '写真',
+      // type: 'base',
+      visible: true,
+      source: new XYZ({
+        url:
+          'https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg',
+      }),
+      opacity: 0.6,
+    } as BaseLayerOptions);
+
     const overViewLayer = new TileLayer({
       source: new XYZ({
         url: 'https://cyberjapandata.gsi.go.jp/xyz/blank/{z}/{x}/{y}.png',
@@ -111,13 +131,13 @@ export class MapComponent implements OnInit {
 
     const baseMaps = new LayerGroup({
       title: 'ベースマップ',
-      layers: [basePaleLayerTile, baseStdLayerTile],
+      layers: [basePaleLayerTile, baseStdLayerTile, baseBlankLayerTile],
       fold: 'open',
     } as GroupLayerOptions);
 
     const overLayMaps = new LayerGroup({
       title: 'オーバーレイ',
-      layers: [tileLayerTile, roadLayerTile],
+      layers: [tileLayerTile, roadLayerTile, basePhotoLayerTile],
       fold: 'open',
     } as GroupLayerOptions);
 
