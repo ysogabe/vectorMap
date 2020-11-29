@@ -97,4 +97,11 @@ layer.bindPopup(s);
 }
 ```
 
+## 試したいサンプル
+
 - https://openlayers.org/en/latest/examples/vector-tile-info.html
+- https://openlayers.org/en/latest/examples/snap.html
+- https://openlayers.org/en/latest/examples/draw-features.html
+- https://openlayers.org/en/latest/examples/layer-group.html
+- https://openlayers.org/en/latest/examples/modify-features.html
+- https://openlayers.org/en/latest/examples/measure.html

@@ -3,7 +3,7 @@ import Map from 'ol/Map';
 import TileLayer from 'ol/layer/Tile';
 import View from 'ol/View';
 import XYZ from 'ol/source/XYZ';
-import VectorTileLayer from 'ol/layer/VectorTile';
+import VectorTileLayer, { Options as VectorOption } from 'ol/layer/VectorTile';
 import VectorTileSource from 'ol/source/VectorTile';
 import MVTFormat from 'ol/format/MVT';
 import { fromLonLat } from 'ol/proj';
@@ -24,6 +24,28 @@ import {
   defaults as defaultControls,
 } from 'ol/control';
 
+import LayerGroup from 'ol/layer/Group';
+import LayerTile from 'ol/layer/Tile';
+import LayerSwitcher from 'ol-layerswitcher';
+import { BaseLayerOptions, GroupLayerOptions } from 'ol-layerswitcher';
+
+interface VectorLayerOptions extends VectorOption {
+  /**
+   * Title of the layer displayed in the LayerSwitcher panel
+   */
+  title?: string;
+  /**
+   * Type of the layer, a layer of `type: 'base'` is treated as a base map
+   * layer by the LayerSwitcher and is displayed with a radio button
+   */
+  type?: 'base';
+  /**
+   * Internal property used to track the indeterminate state of a layer/ group
+   *
+   * @protected
+   */
+  indeterminate?: boolean;
+}
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -35,11 +57,23 @@ export class MapComponent implements OnInit {
   public cursor: string = 'auto';
 
   ngOnInit(): void {
-    const baseLayer = new TileLayer({
+    const basePaleLayerTile = new LayerTile({
+      title: '標準地図（淡色）',
+      type: 'base',
+      visible: true,
       source: new XYZ({
         url: 'https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png',
       }),
-    });
+    } as BaseLayerOptions);
+
+    const baseStdLayerTile = new LayerTile({
+      title: '標準地図',
+      type: 'base',
+      visible: true,
+      source: new XYZ({
+        url: 'https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png',
+      }),
+    } as BaseLayerOptions);
 
     const overViewLayer = new TileLayer({
       source: new XYZ({
@@ -47,16 +81,20 @@ export class MapComponent implements OnInit {
       }),
     });
 
-    const tileLayer = new TileLayer({
+    const tileLayerTile = new LayerTile({
+      title: '土地利用',
+      visible: true,
       source: new XYZ({
         url: 'https://nlftp.mlit.go.jp/ksj/tile/L03-b/{z}/{x}/{y}.png',
       }),
-      opacity: 0.3,
+      opacity: 0.5,
       minZoom: 12,
       maxZoom: 18,
-    });
+    } as BaseLayerOptions);
 
-    const roadLayer = new VectorTileLayer({
+    const roadLayerTile = new VectorTileLayer({
+      title: '道路・鉄道',
+      visible: true,
       source: new VectorTileSource({
         format: new MVTFormat({
           layers: ['road', 'railway'],
@@ -68,8 +106,20 @@ export class MapComponent implements OnInit {
         ],
       }),
       style: (f, n) => vtStyle(f, n),
-      opacity: 0.7,
-    });
+      opacity: 0.8,
+    } as VectorLayerOptions);
+
+    const baseMaps = new LayerGroup({
+      title: 'ベースマップ',
+      layers: [basePaleLayerTile, baseStdLayerTile],
+      fold: 'open',
+    } as GroupLayerOptions);
+
+    const overLayMaps = new LayerGroup({
+      title: 'オーバーレイ',
+      layers: [tileLayerTile, roadLayerTile],
+      fold: 'open',
+    } as GroupLayerOptions);
 
     this.map = new Map({
       controls: defaultControls().extend([
@@ -86,10 +136,18 @@ export class MapComponent implements OnInit {
           collapsed: false,
         }),
         new Rotate(),
+        new LayerSwitcher({
+          activationMode: 'click',
+          startActive: false,
+          collapseTipLabel: '地図切替',
+          tipLabel: '表示地図切替',
+          reverse: false,
+          groupSelectStyle: 'children',
+        }),
       ]),
 
       interactions: defaultInteraction().extend([new DragRotateAndZoom()]),
-      layers: [baseLayer, tileLayer, roadLayer],
+      layers: [baseMaps, overLayMaps],
       target: 'map',
       view: new View({
         center: fromLonLat([139.75, 35.68]),

@@ -22,6 +22,7 @@
     "@types/ol": "^6.4.2",
     "angular-cli-ghpages": "^0.6.2",
     "ol": "^6.4.3",
+    "ol-layerswitcher": "^3.8.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
