@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## TODO's
 
-[] 地図のコピーライトを正しく表示する
+- [ ] 地図のコピーライトを正しく表示する
 
 ## Development server
 
