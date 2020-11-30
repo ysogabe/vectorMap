@@ -63,6 +63,9 @@ export class MapComponent implements OnInit {
       visible: true,
       source: new XYZ({
         url: 'https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png',
+        attributions: [
+          '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel=”noopener noreferrer”>地理院タイル</a>',
+        ],
       }),
     } as BaseLayerOptions);
 
@@ -81,6 +84,9 @@ export class MapComponent implements OnInit {
       visible: true,
       source: new XYZ({
         url: 'https://cyberjapandata.gsi.go.jp/xyz/blank/{z}/{x}/{y}.png',
+        attributions: [
+          '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel=”noopener noreferrer”>地理院タイル</a>',
+        ],
       }),
     } as BaseLayerOptions);
 
@@ -91,6 +97,9 @@ export class MapComponent implements OnInit {
       source: new XYZ({
         url:
           'https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg',
+        attributions: [
+          '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel=”noopener noreferrer”>地理院タイル</a>',
+        ],
       }),
       opacity: 0.6,
     } as BaseLayerOptions);
@@ -98,6 +107,9 @@ export class MapComponent implements OnInit {
     const overViewLayer = new TileLayer({
       source: new XYZ({
         url: 'https://cyberjapandata.gsi.go.jp/xyz/blank/{z}/{x}/{y}.png',
+        attributions: [
+          '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel=”noopener noreferrer”>地理院タイル</a>',
+        ],
       }),
     });
 
@@ -106,6 +118,9 @@ export class MapComponent implements OnInit {
       visible: true,
       source: new XYZ({
         url: 'https://nlftp.mlit.go.jp/ksj/tile/L03-b/{z}/{x}/{y}.png',
+        attributions: [
+          '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel=”noopener noreferrer”>地理院タイル</a>',
+        ],
       }),
       opacity: 0.5,
       minZoom: 12,
@@ -122,7 +137,7 @@ export class MapComponent implements OnInit {
         url:
           'https://cyberjapandata.gsi.go.jp/xyz/experimental_bvmap/{z}/{x}/{y}.pbf',
         attributions: [
-          '<a href="https://github.com/gsi-cyberjapan/gsimaps-vector-experiment" target="_blank" rel=”noopener noreferrer”>国土地理院</a>',
+          '<a href="https://github.com/gsi-cyberjapan/gsimaps-vector-experiment" target="_blank" rel=”noopener noreferrer”>国土地理院ベクトルタイル提供実験</a>',
         ],
       }),
       style: (f, n) => vtStyle(f, n),

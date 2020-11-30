@@ -4,7 +4,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## TODO's
 
-- [ ] 地図のコピーライトを正しく表示する
+- [ ] ポイントを打てるようにする
+- [x] 地図のコピーライトを正しく表示する
+- [ ] 全画面復帰後の画面サイズの調整
 
 ## Development server
 
