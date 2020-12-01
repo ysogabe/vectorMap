@@ -1,0 +1,9 @@
+<table class="table">
+    <caption>道路など</caption>
+    <tr>
+        <th >項目</th><th>凡例</th>
+    </tr>
+    <tr *ngFor="let val of v">
+        <td class="item">{{val.value}}</td><td class="legend"> <img src="{{ val.code }}" width="25px" height="25px" border="1"></td>
+    </tr>
+</table>

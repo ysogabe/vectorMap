@@ -1,0 +1,7 @@
+{ "vectorExperimentLegend":
+    [
+        {"value": "国道","code": "assets/images/road-01.png"},
+        {"value": "高速道路","code": "assets/images/road-03.png"},
+        {"value": "一般道路（幅員13m以上）","code": "assets/images/road-02.png"}
+    ]
+}

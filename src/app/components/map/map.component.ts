@@ -52,8 +52,10 @@ interface VectorLayerOptions extends VectorOption {
   styleUrls: ['./map.component.css'],
 })
 export class MapComponent implements OnInit {
-  constructor() {}
-  public map: Map | undefined;
+  constructor() {
+    this.map = new Map({});
+  }
+  public map: Map;
   public cursor: string = 'auto';
 
   ngOnInit(): void {
@@ -114,7 +116,7 @@ export class MapComponent implements OnInit {
     });
 
     const tileLayerTile = new LayerTile({
-      title: '土地利用',
+      title: '土地利用細分',
       visible: true,
       source: new XYZ({
         url: 'https://nlftp.mlit.go.jp/ksj/tile/L03-b/{z}/{x}/{y}.png',
@@ -128,7 +130,7 @@ export class MapComponent implements OnInit {
     } as BaseLayerOptions);
 
     const roadLayerTile = new VectorTileLayer({
-      title: '道路・鉄道',
+      title: '道路など',
       visible: true,
       source: new VectorTileSource({
         format: new MVTFormat({

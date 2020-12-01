@@ -5,6 +5,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## TODO's
 
 - [ ] ポイントを打てるようにする
+- [ ] 凡例をつける
 - [x] 地図のコピーライトを正しく表示する
 - [ ] 全画面復帰後の画面サイズの調整
 

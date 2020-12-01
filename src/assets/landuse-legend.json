@@ -1,0 +1,16 @@
+{ "landUseSubdivisionMesh":
+    [
+        {"value": "田","code": "assets/images/0100.png"},
+        {"value": "その他の農用地","code": "assets/images/0200.png"},
+        {"value": "森林","code": "assets/images/0500.png"},
+        {"value": "荒地","code": "assets/images/0901.png"},
+        {"value": "建物用地","code": "assets/images/0700.png"},
+        {"value": "道路","code": "assets/images/0901.png"},
+        {"value": "鉄道","code": "assets/images/0902.png"},
+        {"value": "その他の用地", "code": "assets/images/1000.png"},
+        {"value": "河川地及び湖沼", "code": "assets/images/1100.png"},
+        {"value": "海浜", "code": "assets/images/1400.png"} ,
+        {"value": "海水域", "code": "assets/images/1500.png"} ,
+        {"value": "ゴルフ場", "code": "assets/images/1600.png"}
+    ]
+}

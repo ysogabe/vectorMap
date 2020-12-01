@@ -1,0 +1,22 @@
+.regend {
+  position: absolute;
+  bottom: 3em;
+  right: 0.5em;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  /* text-align: left; */
+}
+
+.panel {
+  margin: 0;
+  border: 4px solid #eee;
+  border-radius: 4px;
+  background-color: white;
+  /* display: none; */
+  max-height: inherit;
+  /* height: 100%; */
+  box-sizing: border-box;
+  overflow-y: auto;
+  opacity: 80%;
+}
