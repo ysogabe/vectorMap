@@ -83,6 +83,9 @@ export class MapComponent implements OnInit {
     );
   }
 
+  /**
+   * 初期Viewの取得
+   */
   private getView(): View {
     return new View({
       center: fromLonLat([139.75, 35.68]),
@@ -112,7 +115,6 @@ export class MapComponent implements OnInit {
       }),
       new Attribution(),
       new FullScreen(),
-
       new Rotate(),
       new LayerSwitcher({
         activationMode: 'click',

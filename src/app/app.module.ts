@@ -12,6 +12,7 @@ import {
   BrowserAnimationsModule,
   NoopAnimationsModule,
 } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {
     AppRoutingModule,
     MatTabsModule,
     BrowserAnimationsModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

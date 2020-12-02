@@ -11,17 +11,21 @@ export class LegendComponent implements OnInit {
   @Input()
   map!: Map;
 
+  isShow: boolean = false;
   constructor() {}
-  // ngAfterViewChecked(): void {
-  //   console.log('==============');
-  //   const el = document.getElementById('regend');
-  //   console.log(el);
-  //   this.map.addControl(
-  //     new Control({
-  //       element: el ? el : undefined,
-  //     })
-  //   );
-  // }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.map);
+    let el = document.getElementById('regend');
+    this.map.addControl(
+      new Control({
+        element: el ? el : undefined,
+      })
+    );
+    console.log(el);
+  }
+  toggleLegend(): void {
+    this.isShow = this.isShow ? false : true;
+    console.log(this.isShow);
+  }
 }

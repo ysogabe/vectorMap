@@ -1,11 +1,8 @@
-<div class="regend" id="regend">
-    <mat-tab-group dynamicHeight>
-        <mat-tab label="土地利用細分"><div class="legend-table"><app-land-use></app-land-use></div></mat-tab>
-        <mat-tab label="道路等"><div class="legend-table"><app-railway></app-railway></div></mat-tab>
+<div class="regend ol-control" id="regend">
+    <button mat-flat-button (click)="toggleLegend()">凡例</button>   
+    <mat-tab-group dynamicHeight *ngIf="isShow">
+        <mat-tab label="土地利用細分"><div><app-land-use></app-land-use></div></mat-tab>
+        <mat-tab label="道路等"><div><app-railway></app-railway></div></mat-tab>
     </mat-tab-group>
-</div>
 
-<!-- <div class="regend" id="regend">
-        <div class="regend-table"><app-land-use></app-land-use></div>
-        <div class="regend-table"><app-railway></app-railway></div>
-</div> -->
+</div>
