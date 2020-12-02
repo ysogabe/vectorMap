@@ -13,6 +13,7 @@ import {
   Select,
   Translate,
   defaults as defaultInteraction,
+  Interaction,
 } from 'ol/interaction';
 import {
   Attribution,
@@ -22,12 +23,15 @@ import {
   ScaleLine,
   FullScreen,
   defaults as defaultControls,
+  Control,
 } from 'ol/control';
 
 import LayerGroup from 'ol/layer/Group';
 import LayerTile from 'ol/layer/Tile';
 import LayerSwitcher from 'ol-layerswitcher';
 import { BaseLayerOptions, GroupLayerOptions } from 'ol-layerswitcher';
+import BaseLayer from 'ol/layer/Base';
+import { Collection } from 'ol';
 
 interface VectorLayerOptions extends VectorOption {
   /**
@@ -52,13 +56,79 @@ interface VectorLayerOptions extends VectorOption {
   styleUrls: ['./map.component.css'],
 })
 export class MapComponent implements OnInit {
-  constructor() {
-    this.map = new Map({});
-  }
-  public map: Map;
+  constructor() {}
+  public map!: Map;
   public cursor: string = 'auto';
 
   ngOnInit(): void {
+    this.map = new Map({
+      controls: this.getControls(),
+      interactions: this.getInteractions(),
+      layers: this.getLayerGroups(),
+      target: 'map',
+      view: this.getView(),
+    });
+
+    const overViewLayer = new TileLayer({
+      source: new XYZ({
+        url: 'https://cyberjapandata.gsi.go.jp/xyz/blank/{z}/{x}/{y}.png',
+        attributions: [
+          '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel=”noopener noreferrer”>地理院タイル</a>',
+        ],
+      }),
+    });
+
+    this.map.addControl(
+      new OverviewMap({ layers: [overViewLayer], collapsed: false })
+    );
+  }
+
+  private getView(): View {
+    return new View({
+      center: fromLonLat([139.75, 35.68]),
+      zoom: 10,
+      minZoom: 8,
+      maxZoom: 17,
+    });
+  }
+
+  /**
+   * 初期インタラクションの取得
+   */
+  private getInteractions(): Collection<Interaction> {
+    return defaultInteraction().extend([new DragRotateAndZoom()]);
+  }
+
+  /**
+   * 初期コントロールコレクションの取得
+   */
+  private getControls(): Collection<Control> {
+    return defaultControls().extend([
+      new ZoomSlider(),
+      new ScaleLine({
+        steps: 10,
+        minWidth: 200,
+        bar: true,
+      }),
+      new Attribution(),
+      new FullScreen(),
+
+      new Rotate(),
+      new LayerSwitcher({
+        activationMode: 'click',
+        startActive: false,
+        collapseTipLabel: '地図切替',
+        tipLabel: '表示地図切替',
+        reverse: false,
+        groupSelectStyle: 'children',
+      }),
+    ]);
+  }
+  /**
+   * 初期表示レイヤーグループ取得
+   * TODO: Service化すること Y.sogabe
+   */
+  private getLayerGroups(): BaseLayer[] {
     const basePaleLayerTile = new LayerTile({
       title: '標準地図（淡色）',
       type: 'base',
@@ -104,16 +174,6 @@ export class MapComponent implements OnInit {
       }),
       opacity: 0.6,
     } as BaseLayerOptions);
-
-    const overViewLayer = new TileLayer({
-      source: new XYZ({
-        url: 'https://cyberjapandata.gsi.go.jp/xyz/blank/{z}/{x}/{y}.png',
-        attributions: [
-          '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel=”noopener noreferrer”>地理院タイル</a>',
-        ],
-      }),
-    });
-
     const tileLayerTile = new LayerTile({
       title: '土地利用細分',
       visible: true,
@@ -157,40 +217,6 @@ export class MapComponent implements OnInit {
       fold: 'open',
     } as GroupLayerOptions);
 
-    this.map = new Map({
-      controls: defaultControls().extend([
-        new ZoomSlider(),
-        new ScaleLine({
-          steps: 10,
-          minWidth: 200,
-          bar: true,
-        }),
-        new Attribution(),
-        new FullScreen(),
-        new OverviewMap({
-          layers: [overViewLayer],
-          collapsed: false,
-        }),
-        new Rotate(),
-        new LayerSwitcher({
-          activationMode: 'click',
-          startActive: false,
-          collapseTipLabel: '地図切替',
-          tipLabel: '表示地図切替',
-          reverse: false,
-          groupSelectStyle: 'children',
-        }),
-      ]),
-
-      interactions: defaultInteraction().extend([new DragRotateAndZoom()]),
-      layers: [baseMaps, overLayMaps],
-      target: 'map',
-      view: new View({
-        center: fromLonLat([139.75, 35.68]),
-        zoom: 10,
-        minZoom: 8,
-        maxZoom: 17,
-      }),
-    });
+    return [baseMaps, overLayMaps];
   }
 }
