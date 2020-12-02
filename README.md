@@ -33,6 +33,15 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
+## github page へのデプロイ
+
+see. https://www.npmjs.com/package/angular-cli-ghpages
+
+```bash
+ng build --prod --base-href "https://ysogabe.github.io/vectorMap/layerMap/"
+angular-cli-ghpages
+```
+
 ## 参考
 
 - [地理院地図 Vector（仮称）提供実験](https://github.com/gsi-cyberjapan/gsimaps-vector-experiment)

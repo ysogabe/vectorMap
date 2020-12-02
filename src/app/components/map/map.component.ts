@@ -74,7 +74,7 @@ export class MapComponent implements OnInit {
     const baseStdLayerTile = new LayerTile({
       title: '標準地図',
       type: 'base',
-      visible: true,
+      visible: false,
       source: new XYZ({
         url: 'https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png',
       }),
@@ -83,7 +83,7 @@ export class MapComponent implements OnInit {
     const baseBlankLayerTile = new LayerTile({
       title: '白地図',
       type: 'base',
-      visible: true,
+      visible: false,
       source: new XYZ({
         url: 'https://cyberjapandata.gsi.go.jp/xyz/blank/{z}/{x}/{y}.png',
         attributions: [
@@ -94,8 +94,7 @@ export class MapComponent implements OnInit {
 
     const basePhotoLayerTile = new LayerTile({
       title: '写真',
-      // type: 'base',
-      visible: true,
+      visible: false,
       source: new XYZ({
         url:
           'https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg',
@@ -188,7 +187,7 @@ export class MapComponent implements OnInit {
       target: 'map',
       view: new View({
         center: fromLonLat([139.75, 35.68]),
-        zoom: 16,
+        zoom: 10,
         minZoom: 8,
         maxZoom: 17,
       }),

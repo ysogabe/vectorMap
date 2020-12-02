@@ -8,6 +8,10 @@ import { LandUseComponent } from './components/map/legend/land-use/land-use.comp
 import { RailwayComponent } from './components/map/legend/railway/railway.component';
 import { LegendComponent } from './components/map/legend/legend.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import {
+  BrowserAnimationsModule,
+  NoopAnimationsModule,
+} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -17,7 +21,12 @@ import { MatTabsModule } from '@angular/material/tabs';
     RailwayComponent,
     LegendComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, MatTabsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    MatTabsModule,
+    BrowserAnimationsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

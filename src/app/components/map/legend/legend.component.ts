@@ -12,15 +12,16 @@ export class LegendComponent implements OnInit {
   map!: Map;
 
   constructor() {}
+  // ngAfterViewChecked(): void {
+  //   console.log('==============');
+  //   const el = document.getElementById('regend');
+  //   console.log(el);
+  //   this.map.addControl(
+  //     new Control({
+  //       element: el ? el : undefined,
+  //     })
+  //   );
+  // }
 
-  ngOnInit(): void {
-    // console.log('==============');
-    // const el = document.getElementById('regend');
-    // console.log(el);
-    // this.map.addControl(
-    //   new Control({
-    //     element: el ? el : undefined,
-    //   })
-    // );
-  }
+  ngOnInit(): void {}
 }
